@@ -38,7 +38,7 @@ body {
   animation: fadeIn 1.5s ease;
 }
 
-/* Antes: cursor: pointer en #bloqueado.carta; ahora se elimina */
+
 #bloqueado.carta {
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ body {
   text-align: center;
 }
 
-/* Solo el icono de candado responde al hover */
+
 .lock-icon {
   font-size: 4em;
   animation: float 3s ease-in-out infinite;
@@ -150,9 +150,7 @@ body {
   overflow: hidden;
   transition: all 0.3s ease;
   letter-spacing: 1px;
-  /* Espaciado entre letras */
   font-weight: 300;
-  /* Grosor de fuente más fino */
 }
 
 #cuenta-regresiva::before {
@@ -313,7 +311,6 @@ hr {
   font-style: italic;
 }
 
-/* Botón "Ábreme" */
 button#abrirme {
   display: none;
   margin-top: 30px;
