@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Venecia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: radial-gradient(circle at top left, #fff0f0, #ffe6e6);
+      font-family: 'Georgia', serif;
+      color: #4d2a2a;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      animation: backgroundMove 20s ease infinite;
+    }
+
+    @keyframes backgroundMove {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .carta {
+      background: rgba(255, 250, 250, 0.98);
+      max-width: 800px;
+      width: 100%;
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #f8d7d7;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 1.5s ease;
+    }
+
+    #bloqueado.carta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      padding: 60px 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .lock-icon {
+      font-size: 4em;
+      animation: float 3s ease-in-out infinite;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 5px 5px rgba(139, 0, 0, 0.3));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hearts {
+      position: relative;
+      margin: 20px 0;
+      height: 50px;
+    }
+
+    .heart {
+      position: absolute;
+      opacity: 0;
+      font-size: 1.2em;
+      animation: hearts 3s ease-in infinite;
+    }
+
+    @keyframes hearts {
+      0% { opacity: 0; transform: translateY(0) scale(0); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+    }
+
+    .heart:nth-child(1) { left: -30px; animation-delay: 0.5s; }
+    .heart:nth-child(2) { left: 0px; animation-delay: 1s; }
+    .heart:nth-child(3) { left: 30px; animation-delay: 1.5s; }
+    .heart:nth-child(4) { left: 40px; animation-delay: 2s;}
+    .heart:nth-child(5) { left: -40px; animation-delay: 2.5s;}
+    .heart:nth-child(6) { left: -20px; animation-delay: 3s;}
+    
+    #cuenta-regresiva {
+      font-size: 0.9em;
+      padding: 15px 25px;
+      background: linear-gradient(45deg, #8B0000, #B22222);
+      color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+      margin-top: 20px;
+      font-family: 'Courier New', monospace;
+      animation: pulse 1.5s ease-in-out infinite, 
+                 border-glow 2s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    #cuenta-regresiva::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: conic-gradient(
+        #8B0000, #B22222, #8B0000, #B22222, #8B0000
+      );
+      z-index: -1;
+      border-radius: 15px;
+      animation: rotate-border 3s linear infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes border-glow {
+      0% { box-shadow: 0 0 10px rgba(139, 0, 0, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 10px rgba(139, 0, 0, 0.3); }
+    }
+
+    @keyframes rotate-border {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .blocked-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      color: #8B0000;
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5em;
+      text-align: center;
+      color: #8B0000;
+      margin-bottom: 0.2em;
+      text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.1);
+    }
+
+    .fecha,
+    #contador {
+      text-align: center;
+      font-size: 15px;
+      color: #8B0000;
+      font-family: monospace;
+      background-color: rgba(255, 228, 228, 0.4);
+      padding: 8px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: all 0.5s ease;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin: 25px 0;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      color: #5c3737;
+    }
+
+    .firma {
+      text-align: right;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2em;
+      color: #8B0000;
+      margin-top: 40px;
+      animation: fadeIn 1s ease 1.8s forwards;
+      opacity: 0;
+      text-shadow: 1px 1px 2px rgba(139, 0, 0, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e8b6b6;
+      margin: 25px 0;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.4s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; display: none; }
+    }
+
+    .fade-out {
+      animation: fadeOut 1s ease forwards;
+    }
+
+    .spotify {
+      margin-top: 40px;
+      text-align: center;
+      animation: fadeIn 1s ease 2s forwards;
+      opacity: 0;
+    }
+
+    .spotify iframe {
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .hint-text {
+      font-size: 0.9em;
+      color: #8B0000;
+      margin-top: 15px;
+      opacity: 0.8;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="bloqueado" class="carta">
+    <div class="hearts">
+      <div class="heart">❤️</div>
+      <div class="heart">💌</div>
+      <div class="heart">🌸</div>
+      <div class="heart">🌹</div>
+      <div class="heart">🛫</div>
+      <div class="heart">😝</div>
+      <div class="heart">💜</div>
+    </div>
+    <div class="lock-icon">💌</div>
+    <h1 class="blocked-title">Carta Secreta</h1>
+    <p class="blocked-text">Esta carta mágica se revelará en:</p>
+    <div id="cuenta-regresiva"></div>
+    <p class="hint-text">el tiempo pasará volando, te lo prometo.<br><br><br><br><br>- cesaríngo</p>
+  </div>
+
+  <div id="contenido" style="display: none;">
+    <div class="carta">
+      <h1>te odio venecia.</h1>
+      <div class="fecha">te escribí esto el 17 de mayo de 2025</div>
+      <div id="contador"></div>
+      <hr>
+      <p>
+        ola,<br><br>
+        no sé ni cómo ni por dónde iniciar, sé que eres muy fan de las cartitas y decidí hacer algo un poco más a mi estilo,
+        llevo mucho tiempo pensando en hacerte esto pero no sabía en qué momento hacerlo.
+      </p>
+      <p>
+        Gracias por ser inspiración, calma y alegría en mi vida. Esta carta es solo un reflejo tenue de todo lo que siento
+        por ti. Y aunque las palabras puedan quedarse cortas, espero que encuentres en ellas un pedacito de mi alma.
+      </p>
+      <div class="spotify">
+        <iframe src="https://open.spotify.com/embed/playlist/1pEScOJE82qeso2eEUhHkb?utm_source=generator" height="352"
+          frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"></iframe>
+      </div>
+      <p class="firma">
+        con todo mi corazóncito,<br>
+        cesarin.
+      </p>
+      <br><br>
+      y no, no te odio. :(
+    </div>
+  </div>
+
+  <script>
+    const fechaDesbloqueo = new Date("2025-06-04T15:07:00");
+    const inicio = new Date("2025-02-14T00:00:00").getTime();
+    const bloqueado = document.getElementById("bloqueado");
+    const contenido = document.getElementById("contenido");
+    const cuentaRegresiva = document.getElementById("cuenta-regresiva");
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      const diferencia = ahora - inicio;
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferencia / 1000) % 60);
+      const milisegundos = diferencia % 1000;
+
+      document.getElementById("contador").innerHTML = `
+        ❤ ${dias}d ${String(horas).padStart(2, '0')}h ${String(minutos).padStart(2, '0')}m 
+        ${String(segundos).padStart(2, '0')}s ❤
+      `;
+    }
+
+    function actualizarCuentaRegresiva() {
+      const ahora = new Date().getTime();
+      const diferencia = fechaDesbloqueo - ahora;
+
+      if (diferencia <= 0) {
+        bloqueado.classList.add("fade-out");
+        setTimeout(() => {
+          bloqueado.style.display = "none";
+          contenido.style.display = "block";
+          setInterval(actualizarContador, 50);
+          actualizarContador();
+        }, 1000);
+      } else {
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+        const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+        const segundos = Math.floor((diferencia / 1000) % 60);
+        const milisegundos = Math.floor(diferencia % 1000);
+
+        cuentaRegresiva.innerHTML = `
+          ⏳ Faltan ${dias}d ${String(horas).padStart(2, '0')}h 
+          ${String(minutos).padStart(2, '0')}m ${String(segundos).padStart(2, '0')}s 
+          ${String(milisegundos).padStart(3, '0')}ms ⏳
+        `;
+      }
+    }
+
+    // Efecto hover interactivo
+    document.getElementById('cuenta-regresiva').addEventListener('mouseover', function() {
+      this.style.transform = 'scale(1.05)';
+    });
+    
+    document.getElementById('cuenta-regresiva').addEventListener('mouseout', function() {
+      this.style.transform = 'scale(1)';
+    });
+
+    setInterval(actualizarCuentaRegresiva, 1);
+    actualizarCuentaRegresiva();
+  </script>
+</body>
+</html>
