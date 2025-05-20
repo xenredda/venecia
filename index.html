@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<!-- EH CABRON Q ANDAS VIENDO EL CODIGO -->
+<!-- EH CABRON Q ANDAS VIENDO EL CODIGO, si wey yo lo hice. -->
 
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,9 @@
   <title>???????? </title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+<link rel="icon"
+  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+
 <body>
   <div id="bloqueado" class="carta">
     <div class="hearts">
@@ -25,11 +27,12 @@
     <p class="blocked-text">Esta sorpresa se revelará en:</p>
     <div id="cuenta-regresiva"></div>
     <button id="abrirme" onclick="verificarFecha()">🔓 YAAAA 🔓</button>
-    <p class="hint-text">tu sabes que dia es.<br>el tiempo pasará volando, te lo prometo.<br><br><br><br><br>- cesaríngo</p>
+    <p class="hint-text">tu sabes que día es.<br>el tiempo pasará volando, te lo prometo.<br><br><br><br><br>- cesaríngo
+    </p>
   </div>
 
   <script>
-    const fechaDesbloqueo = new Date("2025-06-04T00:00:00").getTime();
+    const fechaDesbloqueo = new Date("2025-06-04T23:59:59").getTime();
     const cuentaRegresiva = document.getElementById("cuenta-regresiva");
     const boton = document.getElementById("abrirme");
 
@@ -37,7 +40,7 @@
       const ahora = Date.now();
       const diff = fechaDesbloqueo - ahora;
 
-      if (diff <= 0) {  
+      if (diff <= 0) {
         cuentaRegresiva.style.display = 'none';
         boton.style.display = 'inline-block';
         clearInterval(intervalo);
@@ -55,8 +58,15 @@
       const password = prompt("¡EH COMO SE Q ERES VEN! 🔐\nSolo ella sabe q onda con la pass:");
       const encodedPass = btoa(unescape(encodeURIComponent(password)));
 
+
       if (encodedPass === 'Y2hpIG8gw7Fv') {
-        window.location = 'carta.html';
+        const var1 = confirm("⚠️ ULTIMA ADVERTENCIA. ⚠️\n Debes de leer esto tu sola. \n SIN NADIE MAS, es muy personal.");
+        if (var1) {
+          window.location = 'carta.html';
+        } else {
+          alert("Esta bien, puedes regresar de nuevo a la pagina cuando estes sola y tengas tiempo.")
+        }
+
       } else {
         alert("❌ ¡Uy! ¿Qué hace aquí otra persona?\nCHISMOSOTE EH... 🧐\n\nPista: Solo tu sabes la contraseña, o no?");
 
