@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
 }
-
+/* no sea chismoso no lea mi codigo kbron */
 body {
   margin: 0;
   padding: 20px;
@@ -38,7 +38,6 @@ body {
   animation: fadeIn 1.5s ease;
 }
 
-
 #bloqueado.carta {
   display: flex;
   flex-direction: column;
@@ -49,7 +48,6 @@ body {
   transition: transform 0.3s ease;
   text-align: center;
 }
-
 
 .lock-icon {
   font-size: 4em;
@@ -132,18 +130,13 @@ body {
 
 #cuenta-regresiva {
   font-size: 1rem;
-  /* Tamaño un poco más grande */
   padding: 18px 30px;
-  /* Más espacio interno */
   background: linear-gradient(45deg, #8B0000, #B22222);
   color: white;
   border-radius: 18px;
-  /* Bordes más redondeados */
   box-shadow: 0 5px 25px rgba(139, 0, 0, 0.3);
-  /* Sombra más pronunciada */
   margin-top: 20px;
   font-family: 'Poppins', sans-serif;
-  /* Fuente más moderna */
   animation: pulse 1.5s ease-in-out infinite,
     border-glow 2s ease-in-out infinite;
   position: relative;
@@ -310,6 +303,7 @@ hr {
   opacity: 0.8;
   font-style: italic;
 }
+
 
 button#abrirme {
   display: none;
