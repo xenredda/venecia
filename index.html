@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+<!-- EH CABRON Q ANDAS VIENDO EL CODIGO -->
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>??????????</title>
+  <title>???????? </title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -23,8 +24,8 @@
     <h1 class="blocked-title"> 🎁 ¿¿¿¿???? 🎁</h1>
     <p class="blocked-text">Esta sorpresa se revelará en:</p>
     <div id="cuenta-regresiva"></div>
-    <button id="abrirme" onclick="window.location='carta.html'">🔓 YAAAA 🔓</button>
-    <p class="hint-text">el tiempo pasará volando, te lo prometo.<br><br><br><br><br>- cesaríngo</p>
+    <button id="abrirme" onclick="verificarFecha()">🔓 YAAAA 🔓</button>
+    <p class="hint-text">tu sabes que dia es.<br>el tiempo pasará volando, te lo prometo.<br><br><br><br><br>- cesaríngo</p>
   </div>
 
   <script>
@@ -36,7 +37,7 @@
       const ahora = Date.now();
       const diff = fechaDesbloqueo - ahora;
 
-      if (diff <= 0) {
+      if (diff <= 0) {  
         cuentaRegresiva.style.display = 'none';
         boton.style.display = 'inline-block';
         clearInterval(intervalo);
@@ -50,8 +51,28 @@
       }
     }
 
+    function verificarFecha() {
+      const password = prompt("¡EH COMO SE Q ERES VEN! 🔐\nSolo ella sabe q onda con la pass:");
+      const encodedPass = btoa(unescape(encodeURIComponent(password)));
+
+      if (encodedPass === 'Y2hpIG8gw7Fv') {
+        window.location = 'carta.html';
+      } else {
+        alert("❌ ¡Uy! ¿Qué hace aquí otra persona?\nCHISMOSOTE EH... 🧐\n\nPista: Solo tu sabes la contraseña, o no?");
+
+      }
+    }
+
+    cuentaRegresiva.style.cursor = 'pointer';
+    cuentaRegresiva.addEventListener('click', () => {
+      if (Date.now() < fechaDesbloqueo) {
+        alert("¡Tramposilla! 🚫 Aún faltan:\n" + cuentaRegresiva.textContent + "\n\nu need to wait 💖");
+      }
+    });
+
     const intervalo = setInterval(actualizarCuenta, 1);
     actualizarCuenta();
   </script>
 </body>
+
 </html>
