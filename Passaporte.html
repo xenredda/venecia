@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- 
+
+    Q PUTAS ANDAS LEYENDO MI CODIGO PINCHE FEKA WE, SOY EL MEJOR CODEANDO CBRON.
+
+-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pasaporte de cesarINlandia</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff0f0;
+            margin: 0;
+            padding: 0;
+            color: #900;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ff0000;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 0.8rem;
+            z-index: 10;
+        }
+
+        main {
+            margin-top: 60px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1rem 2rem;
+        }
+
+        #container-slides {
+            overflow-y: auto;
+            max-height: 70vh;
+            border: 2px solid #900;
+            border-radius: 10px;
+            background: white;
+            padding: 1rem;
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide h2 {
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+        }
+
+        .slide p.descripcion {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .slide button.hecho {
+            background: #900;
+            color: white;
+        }
+
+        .slide button {
+            background-color: #d94f4f;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 25px;
+            margin: 8px;
+            transition: 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .slide input[type="file"] {
+            margin-bottom: 1rem;
+            align-self: center;
+        }
+
+        .preview {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 10px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            display: block;
+            align-self: center;
+            border: 2px solid #900;
+        }
+
+        .navegacion {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .navegacion button {
+            background-color: #d94f4f;
+            border: none;
+            color: white;
+            padding: 20px 24px;
+            text-align: center;
+            margin-top: auto;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 25px;
+            margin: 8px;
+            transition: 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        #progreso-container {
+            height: 10px;
+            background: #fdd;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        #progreso {
+            height: 100%;
+            background: #900;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        #contador {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #900;
+        }
+
+        #galeria {
+            display: none;
+            max-width: 480px;
+            margin: 1rem auto;
+        }
+
+        #galeria.active {
+            display: block;
+        }
+
+        #contenedor-galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+        }
+
+        .galeria-item {
+            background: white;
+            border: 2px solid #900;
+            border-radius: 10px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            max-height: 120px;
+            margin-bottom: 0.5rem;
+        }
+
+        .galeria-item p {
+            font-size: 0.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #900;
+        }
+
+        .galeria-item button {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            border: 1px solid #900;
+            border-radius: 6px;
+            background: white;
+            color: #900;
+            cursor: pointer;
+        }
+
+        main {
+            display: none;
+        }
+
+        #portada {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom right, #ffcccc, #ffe6e6);
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="portada"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(to bottom right, #ffcccc, #ffe6e6); color: #800000; text-align: center; font-family: 'Georgia', serif;">
+        <h1 style="font-size: 3em; margin-bottom: 10px;">REPUBLICA D CESARIN</h1>
+        <p style="font-size: 1.2em; max-width: 90%; margin-bottom: 30px;">
+            <b>Jueves 22 de Mayo del 2025. PACHUCA, HIDALGO. 2025</b>
+            <br><br><br> BIENVENIDA MAMI A LA CIUDAD DEL VIENTO <br> la guia exacta y perfecta para conocer pachuquita
+            con el anfifrion mas guapo ajsdjasjd y tambien para guardar las imagenes como un bonito recuerdo.
+            <br><br><small><small>- cesarin</small></small>
+        </p>
+        <button onclick="comenzarViaje()"
+            style="margin-top: 20px; padding: 12px 30px; font-size: 1.1em; border: none; background-color: #800000; color: white; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: background 0.3s;">
+            Comenzar viaje
+        </button>
+    </section>
+
+    <header>Pasaporte de Cesarinlandia</header>
+    <main>
+        <div id="contador"></div>
+        <div id="progreso-container">
+            <div id="progreso"></div>
+        </div>
+        <div id="container-slides"></div>
+        <div class="navegacion">
+            <button id="btn-anterior">Anterior</button>
+            <button id="btn-siguiente">Siguiente</button>
+        </div>
+
+
+        <section id="galeria">
+            <h2>Galería de recuerdos</h2>
+            <div id="contenedor-galeria"></div>
+        </section>
+    </main>
+
+    <script>
+        const actividades = [
+            { titulo: "Llegada a la estacion de autobuses", descripcion: "ESPERANDOTE como te fue en tu viaje bonita." }, //
+            { titulo: "Fotito juntos abrazaos", descripcion: "capturaremos nuestro primer abrazo del día." },
+            { titulo: "Foto del regalo", descripcion: "Mostraremos el detalle especial que me hiciste, gracias <3." },
+            { titulo: "Tomar la estación del Tuzobús 'Central de Autobuses' en la línea T01", descripcion: "Nos dirigiremos a la primera estación del Tuzobús para iniciar el recorrido, hara mucho calorcito eh." },
+            { titulo: "Descender en la estación del Tuzobús 'Presidente Alemán'", descripcion: "Aquí haremos transbordo para seguir nuestro camino, yo t explicare pq esta bn fea la siuda d pachus." },
+            { titulo: "Transbordar la línea T05 o T04", descripcion: "Cambiaremos de línea para acercarnos al FAKIN RELOJITO D PACHUUUSSS." },
+            { titulo: "Descender en la estación del Tuzobús 'Centro Histórico'", descripcion: "BUIENBENUSKI A LA CIUDAD DEL VIENTO MAMI. hay una iglesia bn aestetic bn chida y ahi esta la fayuca al lado mami lo q quieras todo 2x100 JAJSDJA" },
+            { titulo: "Fotito con el reloj", descripcion: "No puede faltar la foto con el fakin big ben pachukeño." },
+            { titulo: "Pedir a alguien que nos tome una foto a los dos", descripcion: "Queremos una foto juntos tomada por alguien más, añale." },
+            { titulo: "Fotito con las letras", descripcion: "Foto junto a las letras icónicas de la ciudad toas grafiteadas jasjdaj." },
+            { titulo: "Ir por un helado al McDonald's o KFC (no sé qué esté abierto)", descripcion: "esta bn chido por que estan bien cerquitas del reloj." },
+            { titulo: "Caminar por las calles de Guerrero", descripcion: "LA FAKIN CALLE MAS FEA DE TANTA GENTE Q HAY, tienes q vivir la verdadera experiencia d un pachuqueño, ademas para q veamos cositas y así." },
+            { titulo: "Foto del estacionamiento ese grandote to raro", descripcion: "esta bn rara esa construccion, es d uno mas altos d todo pachukita." },
+            { titulo: "Fotito de los semáforos pachuqueños", descripcion: "ESTAN BIEN CHISTOSONES LOS SEMAFOROS XD." },
+            { titulo: "Foto en la calle Xicoténcatl", descripcion: "SI, EXISTE UNA CALLE ASI, WOW Q IMPRESIONANTE, es q por ahi quedan los museitos y el bar donde voy a tomar con mis papis, y pasaremos por los portales bn chidotes fancys bonitos." },
+            { titulo: "Foto de camino al Cuartel del Arte", descripcion: "creo pasaremos por una iglesia asi bn grandota y construcciones viejitas." },
+            { titulo: "Foto 1 de Cuartel del Arte", descripcion: "LA VERDA NO SE SI ESTE ABIERTO O HAYA ALGUNA EXPO, si es asi pues ya sabes q hacer jeje." },
+            { titulo: "Foto 2 del Cuartel del Arte", descripcion: "una aca bn chistosona." },
+            { titulo: "Foto 3 del Cuartel del Arte", descripcion: "Última foto en el Cuartel." },
+            { titulo: "Foto 1 en el Museo de la Fotografía", descripcion: "la neta jamas he ido a ese museo, ni se como llegar solo se que esta al lado." },
+            { titulo: "Foto 2 en el Museo de la Fotografía", descripcion: "foto del museo del foto ajsdjadsj." },
+            { titulo: "Foto 3 en el Museo de la Fotografía", descripcion: "Cerramos con una última fotitoo aquí." },
+            { titulo: "Fotito de las palmeras de Revolución", descripcion: "Estan un poquito lejos, pero se ven aesteticonas, si nos da tiempo amos a verlas hay muchos cafes ai" },
+            { titulo: "Foto del teatro grandote ese Bartolomé", descripcion: "esta bn chidoteee, ahi vino radiohead hace mucho y hay conciertillos y asi." },
+            { titulo: "Foto del Benito Juárez de la Plaza Juárez", descripcion: "benito juarez era muy chaparrito, sabias? aqui si se ve altote el bato." },
+            { titulo: "Foto con el Palacio de Gobierno", descripcion: "pues no se jajajaj, gobierno things viva MENCHACA(gobernador) es q no se se ve chidote." },
+            { titulo: "Foto en el parquecito fancy", descripcion: "esta to feo pero m gusta el nombre, si nos da tiempo amos.(Jardin de los hombres ilustres.)" },
+            { titulo: "COMER UN PASTE KIKO EN PLAZA JUÁREZ", descripcion: "FAKIN PASTESOTE PAPU sabias q hay de pizza y d pastor estan meh pero el d salchicha jamas falla." },
+            { titulo: "Tomar la estación Plaza Juárez del Tuzobús", descripcion: "podemos tomar la t1 para ir directo a la central q es la mas rapida se salta mas estaciones, o podemos tomar la t5 que da una vueltita por pachus pero tendriamos q transbordar, depende del tiempo jiji." },
+            { titulo: "Fotito del autobús o vistas del camino 1", descripcion: "Fotos en el camino." },
+            { titulo: "Fotito del autobús o vistas del camino 2", descripcion: "Más vistas desde el camino." },
+            { titulo: "SI ES Q VAMOS A FRIENDS(DESCENDER EN ZONA PLATEADA)", descripcion: "El plan no es ir, pero si nos da tiempo al menos te muestro el puente atirantado y galerias d lejitos." },
+            { titulo: "FOTO D LA ENTRADA D FRIENDS (foto de lo que sea, ojalá y se haga el plan) :(", descripcion: "NAH SERIA D LOCOS IR Y CANTARTE UNAS CANCIONCITAS CON UN AZUL EN MI MANO." },
+            { titulo: "Foto en la estación Central de Autobuses", descripcion: "Última parada para las fotos :(." },
+            { titulo: "Foto de despedida o del cielito", descripcion: "Foto emotiva para despedir el día." },
+            { titulo: "Foto del boleto", descripcion: "Recordaremos el boleto del viaje." },
+            { titulo: "Foto del camino a casa", descripcion: "Fotos del regreso." },
+            { titulo: "Foto cuando haya llegado a la estación a Tlax.", descripcion: "Foto final para cerrar el recuerdo." },
+            { titulo: "te quiero mucho :(", descripcion: "gracias por venir y hacerme muy feliz, fue un viaje increible y marvilloso, nos veremos muy pronto bonita. <br><br><small><small>pss, esta pagina la hice en 6 horas y con 500 lineas de codigo, luego t lo muestro jiji</small></small>." }
+        ];
+
+        function comenzarViaje() {
+            document.getElementById('portada').style.display = 'none';
+            document.querySelector('main').style.display = 'block';
+        }
+
+        let estado = {
+            actual: 0,
+            hechos: Array(actividades.length).fill(false),
+            fotosMemoria: Array(actividades.length).fill(null)
+        };
+
+        // Guardar estado en localStorage
+        function guardarEstado() {
+            localStorage.setItem("pasaporteCesarinlandia", JSON.stringify(estado));
+        }
+
+        // Cargar estado de localStorage
+        function cargarEstado() {
+            const saved = localStorage.getItem("pasaporteCesarinlandia");
+            if (saved) {
+                estado = JSON.parse(saved);
+                // Arrays con longitud correcta
+                if (!Array.isArray(estado.hechos) || estado.hechos.length !== actividades.length)
+                    estado.hechos = Array(actividades.length).fill(false);
+                if (!Array.isArray(estado.fotosMemoria) || estado.fotosMemoria.length !== actividades.length)
+                    estado.fotosMemoria = Array(actividades.length).fill(null);
+            }
+        }
+
+        // Crear slides
+        function crearSlides() {
+            const container = document.getElementById("container-slides");
+            container.innerHTML = "";
+            actividades.forEach((act, i) => {
+                const slide = document.createElement("div");
+                slide.className = "slide" + (i === estado.actual ? " active" : "");
+                slide.innerHTML = `
+      <h2>${act.titulo}</h2>
+      <p class="descripcion">${act.descripcion}</p>
+      <button class="${estado.hechos[i] ? "hecho" : ""}" onclick="toggleHecho(${i}, this)">
+        ${estado.hechos[i] ? "Hecho ✔" : "Marcar como hecho"}
+      </button>
+      <input type="file" accept="image/*" capture="environment" onchange="subirFoto(event, ${i})" />
+      <img id="preview-${i}" class="preview" src="${estado.fotosMemoria[i] ? estado.fotosMemoria[i].src : ""}" style="${estado.fotosMemoria[i] ? "" : "display:none"}" />
+    `;
+                container.appendChild(slide);
+            });
+            actualizarProgreso();
+            actualizarContador();
+            ajustarScrollContainer();
+        }
+
+        function ajustarScrollContainer() {
+            const container = document.getElementById("container-slides");
+            container.scrollTop = 0; // Pa que siempre se vea el contenido desde arriba
+        }
+
+        function toggleHecho(i, btn) {
+            estado.hechos[i] = !estado.hechos[i];
+            btn.classList.toggle("hecho");
+            btn.textContent = estado.hechos[i] ? "Hecho ✔" : "Marcar como hecho";
+            guardarEstado();
+        }
+
+        function subirFoto(event, i) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const src = e.target.result;
+                estado.fotosMemoria[i] = {
+                    src,
+                    fecha: new Date().toLocaleString()
+                };
+                const img = document.getElementById(`preview-${i}`);
+                img.src = src;
+                img.style.display = "block";
+                guardarEstado();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function anterior() {
+            if (estado.actual > 0) {
+                estado.actual--;
+                crearSlides();
+                guardarEstado();
+            }
+        }
+
+        function siguiente() {
+            if (estado.actual < actividades.length - 1) {
+                estado.actual++;
+                crearSlides();
+                guardarEstado();
+            } else {
+                mostrarGaleria();
+            }
+        }
+
+        function actualizarProgreso() {
+            const progreso = document.getElementById("progreso");
+            progreso.style.width = ((estado.actual + 1) / actividades.length) * 100 + "%";
+        }
+
+        function actualizarContador() {
+            const contador = document.getElementById("contador");
+            contador.textContent = `Actividad ${estado.actual + 1} de ${actividades.length}`;
+        }
+
+        function mostrarGaleria() {
+            document.getElementById("container-slides").style.display = "none";
+            document.querySelector(".navegacion").style.display = "none";
+            document.getElementById("progreso-container").style.display = "none";
+            document.getElementById("contador").style.display = "none";
+
+            const galeria = document.getElementById("galeria");
+            galeria.classList.add("active");
+
+            const contGaleria = document.getElementById("contenedor-galeria");
+            contGaleria.innerHTML = "";
+
+            const fotos = estado.fotosMemoria.filter(f => f !== null);
+
+            if (fotos.length === 0) {
+                contGaleria.innerHTML = "<p>No se han guardado fotos aún.</p>";
+                return;
+            }
+
+            fotos.forEach((foto, index) => {
+                const div = document.createElement("div");
+                div.className = "galeria-item";
+                div.innerHTML = `
+      <img src="${foto.src}" alt="Foto ${index + 1}" />
+      <p>${foto.fecha}</p>
+      <button onclick="descargarFoto(${index})">Descargar</button>
+    `;
+                contGaleria.appendChild(div);
+            });
+        }
+
+        function descargarFoto(i) {
+            // Obtener la foto correspondiente en el arreglo original
+            // porque filtramos nulos en galería, usamos índice relativo:
+            const fotos = estado.fotosMemoria.filter(f => f !== null);
+            const foto = fotos[i];
+            if (!foto) return;
+
+            const link = document.createElement("a");
+            link.href = foto.src;
+            link.download = `foto_${i + 1}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.getElementById("btn-anterior").addEventListener("click", anterior);
+        document.getElementById("btn-siguiente").addEventListener("click", siguiente);
+
+        // Cargar estado y crear slides
+        cargarEstado();
+        crearSlides();
+
+    </script>
+</body>
+
+</html>
